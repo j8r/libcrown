@@ -1,0 +1,9 @@
+name: libcrown
+version: 0.1.0
+
+authors:
+  - Julien Reichardt <mi@jrei.ch>
+
+description: Library for Unix users, groups and passwords manipulation
+
+license: ISC

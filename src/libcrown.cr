@@ -27,14 +27,17 @@
 #
 
 struct Libcrown
-  getter users : Hash(UInt32, User) = Hash(UInt32, User).new,
-    groups : Hash(UInt32, Group) = Hash(UInt32, Group).new,
-    passwords : Hash(String, Password) = Hash(String, Password).new
-  # User file, commonly stored in `/etc/passwd`
+  # System users. Modifying it directly is **unsafe**.
+  getter users : Hash(UInt32, User) = Hash(UInt32, User).new
+  # System groups. Modifying it directly is **unsafe**.
+  getter groups : Hash(UInt32, Group) = Hash(UInt32, Group).new
+  # User's passwords. Modifying it directly is **unsafe**.
+  getter passwords : Hash(String, Password) = Hash(String, Password).new
+  # User file, commonly stored in `/etc/passwd`.
   getter passwd_file : File? = nil
-  # Group file, commonly stored in `/etc/group`
+  # Group file, commonly stored in `/etc/group`.
   getter group_file : File? = nil
-  # Password file, commonly stored in `/etc/shadow`
+  # Password file, commonly stored in `/etc/shadow`.
   getter shadow_file : File? = nil
 
   # Requires root permissions to read the shadow file and write passwd and group files
@@ -119,6 +122,7 @@ struct Libcrown
     uid
   end
 
+  # Deletes a group.
   def del_group(gid : UInt32) : Group?
     @users.each do |id, entry|
       raise "the group #{gid} is still the primary one of the user #{id}" if entry.gid == gid

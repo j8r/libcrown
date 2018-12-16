@@ -102,7 +102,7 @@ struct Libcrown
   end
 
   # Add a new group.
-  def add_group(group_entry : Group, gid : UInt32 = @group.available_id) : UInt32
+  def add_group(group_entry : Group, gid : UInt32 = available_gid) : UInt32
     check_available_group group_entry.name
     check_available_gid gid
     group_entry.validate
@@ -112,7 +112,7 @@ struct Libcrown
   end
 
   # Adds a new user along, to an existing group.
-  def add_user(user_entry : User, uid : UInt32 = available_id, password_entry : Password = Password.new) : UInt32
+  def add_user(user_entry : User, uid : UInt32 = available_uid, password_entry : Password = Password.new) : UInt32
     user_entry.validate
     check_available_user user_entry.name
     check_available_uid uid
@@ -148,13 +148,18 @@ struct Libcrown
   end
 
   # Adds/ensure an user is member of the group. Not needed if the group is the main one of the user.
-  def add_group_member(gid : UInt32, uid : UInt32) : Set(String)
+  def add_group_member(uid : UInt32, gid : UInt32) : Set(String)
     @groups[gid].users << @users[uid].name
   end
 
-  # Delete an user member from a group.
-  def del_group_member(gid : UInt32, uid : UInt32) : Set(String)
+  # Delete?/ensure an user isn't a member of the group.
+  def del_group_member(uid : UInt32, gid : UInt32) : Set(String)
     @groups[gid].users.delete @users[uid].name
+  end
+
+  # Returns `true` if the user is a member of the group or if the group is primary one of the user.
+  def user_group_member?(uid : UInt32, gid : UInt32) : Bool
+    @users[uid].gid == gid || @groups[gid].users.includes?(@users[uid].name)
   end
 
   # Get the user's password entry.

@@ -221,17 +221,27 @@ describe Libcrown do
   end
 
   describe "group member" do
-    it "add" do
-      libcrown.add_group_member 0, 0
-      libcrown.groups[0].users.includes?("root").should be_true
-    rescue
-      libcrown.del_group_member 0, 0
+    it "user has the group as primary" do
+      libcrown.user_group_member?(0, 0).should be_true
     end
 
-    it "delete" do
-      libcrown.add_group_member 0, 0
-      libcrown.del_group_member 0, 0
-      libcrown.groups[0].users.includes?("root").should be_false
+    it "add user" do
+      group_entry = Libcrown::Group.new "__new_temp_group"
+      libcrown.add_group group_entry, 99996
+      libcrown.add_group_member 0, 99996
+      libcrown.user_group_member?(0, 99996).should be_true
+    ensure
+      libcrown.del_group 99996
+    end
+
+    it "delete user" do
+      group_entry = Libcrown::Group.new "__new_temp_group"
+      libcrown.add_group group_entry, 99995
+      libcrown.add_group_member 0, 99995
+      libcrown.del_group_member 0, 99995
+      libcrown.user_group_member?(0, 99995).should be_false
+    ensure
+      libcrown.del_group 99995
     end
   end
 end

@@ -1,5 +1,8 @@
 # Libcrown
 
+[![Build Status](https://cloud.drone.io/api/badges/j8r/libcrown/status.svg)](https://cloud.drone.io/j8r/libcrown)
+[![ISC](https://img.shields.io/badge/License-ISC-blue.svg?style=flat-square)](https://en.wikipedia.org/wiki/ISC_license)
+
 Library for Unix users, groups and passwords manipulation.
 
 Can be used to perform actions in Crystal usually done by commands like `adduser`, `deluser`.
@@ -55,4 +58,4 @@ libcrown.write
 
 ## License
 
-Copyright (c) 2018 Julien Reichardt - ISC License
+Copyright (c) 2018-2019 Julien Reichardt - ISC License

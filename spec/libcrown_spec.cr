@@ -15,7 +15,7 @@ describe Libcrown do
       shadow_temp = File.tempfile "shadow"
       begin
         File.write shadow_temp.path, SHADOW
-        librown_shadow = Libcrown.new(shadow_file: shadow_temp, passwd_file: nil, group_file: nil)
+        librown_shadow = Libcrown.new(shadow_file: Path[shadow_temp.path], passwd_file: nil, group_file: nil)
         librown_shadow.write
         File.read(shadow_temp.path).should eq SHADOW
       ensure
@@ -27,7 +27,7 @@ describe Libcrown do
       begin
         FileUtils.cp "/etc/passwd", passwd_temp.path
         passwd = File.read passwd_temp.path
-        librown_passwd = Libcrown.new(shadow_file: nil, passwd_file: passwd_temp, group_file: nil)
+        librown_passwd = Libcrown.new(shadow_file: nil, passwd_file: Path[passwd_temp.path], group_file: nil)
         librown_passwd.write
         File.read(passwd_temp.path).should eq passwd
       ensure
@@ -39,7 +39,7 @@ describe Libcrown do
       begin
         FileUtils.cp "/etc/group", group_temp.path
         group = File.read group_temp.path
-        librown_group = Libcrown.new(shadow_file: nil, passwd_file: nil, group_file: group_temp)
+        librown_group = Libcrown.new(shadow_file: nil, passwd_file: nil, group_file: Path[group_temp.path])
         librown_group.write
         File.read(group_temp.path).should eq group
       ensure
@@ -142,7 +142,7 @@ describe Libcrown do
       it "with a password" do
         user = Libcrown::User.new "__user_with_password", 0
         libcrown.add_user user, id, Libcrown::Password.new("passw0rd")
-        libcrown.passwords[user.name].match?("passw0rd").should be_true
+        libcrown.passwords[user.name].verify("passw0rd").should be_true
       ensure
         libcrown.del_user(id).should eq user
       end

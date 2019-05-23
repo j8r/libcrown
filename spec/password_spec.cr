@@ -6,8 +6,8 @@ describe Libcrown::Password do
     it "encrypts a passsword with #{type}" do
       password = "abcd01?"
       crypt = Libcrown::Password.new password, type
-      crypt.match?(password).should be_true
-      crypt.match?(password + ' ').should be_false
+      crypt.verify(password).should be_true
+      crypt.verify(password + ' ').should be_false
     end
   end
 end

@@ -1,5 +1,6 @@
 require "./password_state"
 
+# Represents a user line of `/etc/passwd`.
 struct Libcrown::User
   # Unique user name.
   property name : String
@@ -14,6 +15,7 @@ struct Libcrown::User
   # Usually hashed password stored in `/etc/shadow`.
   property password : PasswordState
 
+  # Creates a new user.
   def initialize(
     @name : String,
     @gid : UInt32 = 100_u32,
@@ -30,8 +32,8 @@ struct Libcrown::User
     {uid.to_u32, user}
   end
 
-  # Validates the `name` and `gecos_comment` fields
-  def validate
+  # Validates the `name` and `gecos_comment` fields.
+  def validate : Nil
     Libcrown.validate_name @name
     @gecos_comment.each_char do |char|
       raise "invalid char in the GECOS comment field: `#{char}`" if char == ':' || !char.ascii?
@@ -39,7 +41,7 @@ struct Libcrown::User
   end
 
   # :nodoc:
-  def build(uid : UInt32, io)
+  def build(uid : UInt32, io : IO) : Nil
     io << @name
     io << @password.build
     io << uid << ':'

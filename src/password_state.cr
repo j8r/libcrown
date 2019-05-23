@@ -1,9 +1,10 @@
-# Reprents a password field. only `/etc/shadow` is supported to store encrypted password
+# Reprents a password field. Only `/etc/shadow` is supported to store encrypted password.
 enum Libcrown::PasswordState
   Hashed
   LoginDisabled
   NISServer
 
+  # :nodoc:
   def self.new(password : String) : PasswordState
     case password
     when "x"    then Hashed
@@ -13,6 +14,7 @@ enum Libcrown::PasswordState
     end
   end
 
+  # :nodoc:
   def build : String
     case self
     when Hashed        then ":x:"

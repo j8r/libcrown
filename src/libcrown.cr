@@ -1,31 +1,31 @@
 # Safe High level API to manipulate users, groups and passwords from /etc/passwd, /etc/group and /etc/shadow.
 #
-# It's highly recommended to use this wrapper for any manipulation. `users`, `groups` and `passwords` getters has to be considered read-only.
+# It's highly recommended to use this wrapper for any manipulation. `users`, `groups` and `passwords`
+# getters have to be considered read-only.
 #
 # ```crystal
 # require "libcrown"
-
+#
 # # Root permissions are needed
 # libcrown = Libcrown.new
-
+#
 # # Add a new group
 # libcrown.add_group Libcrown::Group.new("new_group"), 100_u32
-
+#
 # # Add a new user with `new_group` as its main group
 # new_user = Libcrown::User.new(
-# name:           "new_user",
-# gid:            100_u32,
-# gecos_comment:  "This is a newly created user",
-# home_directory: "/home/new_user",
-# login_shell:    "/bin/sh",
+#   name: "new_user",
+#   gid: 100_u32,
+#   gecos_comment: "This is a newly created user",
+#   home_directory: "/home/new_user",
+#   login_shell: "/bin/sh",
 # )
 # libcrown.add_user new_user
-
+#
 # # Save the modifications to the disk
 # libcrown.write
 # ```
 #
-
 struct Libcrown
   # System users. Modifying it directly is **unsafe**.
   getter users : Hash(UInt32, User) = Hash(UInt32, User).new
@@ -34,11 +34,11 @@ struct Libcrown
   # User's passwords. Modifying it directly is **unsafe**.
   getter passwords : Hash(String, Password) = Hash(String, Password).new
   # User file, commonly stored in `/etc/passwd`.
-  getter passwd_file : File? = nil
+  getter passwd_file : Path? = nil
   # Group file, commonly stored in `/etc/group`.
-  getter group_file : File? = nil
+  getter group_file : Path? = nil
   # Password file, commonly stored in `/etc/shadow`.
-  getter shadow_file : File? = nil
+  getter shadow_file : Path? = nil
 
   # Requires root permissions to read the shadow file and write passwd and group files
   # As non-root, to only read passwd and group files
@@ -46,23 +46,23 @@ struct Libcrown
   # libcrown = Libcrown.new nil
   # ```
   #
-  def initialize(shadow_file : File? = File.new("/etc/shadow"), passwd_file : File? = File.new("/etc/passwd"), group_file : File? = File.new("/etc/group"))
+  def initialize(shadow_file : Path? = Path["/etc/shadow"], passwd_file : Path? = Path["/etc/passwd"], group_file : Path? = Path["/etc/group"])
     if @shadow_file = shadow_file
-      File.each_line shadow_file.path do |line|
+      File.each_line shadow_file.to_s do |line|
         user, password = Password.parse_shadow_line line
         @passwords[user] = password
       end
     end
 
     if @passwd_file = passwd_file
-      File.each_line passwd_file.path do |line|
+      File.each_line passwd_file.to_s do |line|
         uid, password = User.parse_passwd_line line
         @users[uid] = password
       end
     end
 
     if @group_file = group_file
-      File.each_line group_file.path do |line|
+      File.each_line group_file.to_s do |line|
         gid, password = Group.parse_group_line line
         @groups[gid] = password
       end
@@ -88,7 +88,7 @@ struct Libcrown
   end
 
   # Validates a name for use as user or group name.
-  def self.validate_name(name : String)
+  def self.validate_name(name : String) : Nil
     raise "the name can't start with a dash `-`: " + name if name.starts_with? '-'
     size = 0
     name.each_char do |char|
@@ -187,8 +187,8 @@ struct Libcrown
 
   # Yields each {{id_type.id}} matching the name.
   def to_{{id_type.id}}(name : String, &block)
-    {{owner.id}}s.each do |id, group|
-      yield id if group.name == name
+    {{owner.id}}s.each do |id, obj|
+      yield id if obj.name == name
     end
   end
 
@@ -268,15 +268,15 @@ struct Libcrown
   end
 
   # Save the state by writing the files to the file system.
-  def write
+  def write : Nil
     if shadow_file = @shadow_file
-      File.write shadow_file.path, build_shadow
+      File.write shadow_file.to_s, build_shadow
     end
     if passwd_file = @passwd_file
-      File.write passwd_file.path, build_passwd
+      File.write passwd_file.to_s, build_passwd
     end
     if group_file = @group_file
-      File.write group_file.path, build_group
+      File.write group_file.to_s, build_group
     end
   end
 end

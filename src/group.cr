@@ -1,5 +1,6 @@
 require "./password_state"
 
+# Represents a password line of `/etc/group`.
 struct Libcrown::Group
   # Unique group name.
   property name : String
@@ -8,25 +9,28 @@ struct Libcrown::Group
   # Generally unused empty/blank password (set to `PasswordState::Hashed`).
   property password : PasswordState
 
+  # Creates a new group.
   def initialize(@name : String, @users : Set(String) = Set(String).new, @password : PasswordState = PasswordState::Hashed)
   end
 
   protected def self.parse_group_line(line : String) : Tuple(UInt32, Group)
     name, password, gid, users = line.split ':', limit: 4
-    group = new name, users.split(',').to_set, PasswordState.new(password)
+    users_set = Set(String).new
+    users.split ',' { |user| users_set << user }
+    group = new name, users_set, PasswordState.new(password)
     {gid.to_u32, group}
   end
 
   # :nodoc:
-  def build(gid : UInt32, io)
+  def build(gid : UInt32, io : IO) : Nil
     io << @name
     io << @password.build
     io << gid << ':'
     @users.join ',', io
   end
 
-  # Validates `gid` and `gecos_comments` fields
-  def validate
+  # Validates `gid` and `gecos_comments` fields.
+  def validate : Nil
     Libcrown.validate_name @name
   end
 end

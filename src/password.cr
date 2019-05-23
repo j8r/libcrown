@@ -1,5 +1,6 @@
 require "./libc_crypt"
 
+# Represents a password line of `/etc/shadow`.
 struct Libcrown::Password
   # Encryption type.
   getter crypto : Encryption
@@ -20,15 +21,18 @@ struct Libcrown::Password
   # The date (stored as the number of days since the epoch) since the user account has been disabled.
   property days_since_account_disabling : UInt32?
 
-  def initialize(@crypto : Encryption = Encryption::PasswordLocked,
-                 @salt : String? = nil,
-                 @hash : String? = nil,
-                 @days_last_change : UInt32? = nil,
-                 @days_before_change : UInt32? = 0_u32,
-                 @days_validity : UInt32? = 99999_u32,
-                 @days_expiration_warning : UInt32? = 7_u32,
-                 @days_account_disabling_after_expiration : UInt32? = nil,
-                 @days_since_account_disabling : UInt32? = nil)
+  # Creates a new password.
+  def initialize(
+    @crypto : Encryption = Encryption::PasswordLocked,
+    @salt : String? = nil,
+    @hash : String? = nil,
+    @days_last_change : UInt32? = nil,
+    @days_before_change : UInt32? = 0_u32,
+    @days_validity : UInt32? = 99999_u32,
+    @days_expiration_warning : UInt32? = 7_u32,
+    @days_account_disabling_after_expiration : UInt32? = nil,
+    @days_since_account_disabling : UInt32? = nil
+  )
   end
 
   protected def self.parse_shadow_line(line : String) : Tuple(String, Password)
@@ -80,12 +84,12 @@ struct Libcrown::Password
   end
 
   # The password match the encrypted hash.
-  def match?(password : String) : Bool
+  def verify(password : String) : Bool
     self == self.class.new(password, @crypto, @salt, @days_last_change)
   end
 
-  # :nodoc:
-  def build(user, io)
+  # Build the password to the given `io`.
+  def build(user : String, io : IO) : Nil
     io << user << ':'
     io << @crypto.build if @crypto
     io << @salt << '$' if @salt

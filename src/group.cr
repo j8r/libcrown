@@ -29,7 +29,7 @@ struct Libcrown::Group
     @users.join ',', io
   end
 
-  # Validates `gid` and `gecos_comments` fields.
+  # Validates `gid` field.
   def validate : Nil
     Libcrown.validate_name @name
   end

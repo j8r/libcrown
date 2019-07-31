@@ -46,7 +46,7 @@ libcrown.add_group Libcrown::Group.new("new_group"), 100_u32
 new_user = Libcrown::User.new(
   name:           "new_user",
   gid:            100_u32,
-  gecos_comment:  "This is a newly created user",
+  full_name:      "New Usser",
   home_directory: "/home/new_user",
   login_shell:    "/bin/sh",
 )

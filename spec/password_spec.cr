@@ -1,5 +1,5 @@
 require "./spec_helper"
-require "../../src/password"
+require "../src/password"
 
 describe Libcrown::Password do
   {Libcrown::Password::Encryption::SHA512, Libcrown::Password::Encryption::SHA256, Libcrown::Password::Encryption::MD5}.each do |type|

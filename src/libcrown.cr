@@ -56,15 +56,15 @@ struct Libcrown
 
     if @passwd_file = passwd_file
       File.each_line passwd_file.to_s do |line|
-        uid, password = User.parse_passwd_line line
-        @users[uid] = password
+        uid, user = User.parse_passwd_line line
+        @users[uid] = user
       end
     end
 
     if @group_file = group_file
       File.each_line group_file.to_s do |line|
-        gid, password = Group.parse_group_line line
-        @groups[gid] = password
+        gid, group = Group.parse_group_line line
+        @groups[gid] = group
       end
     end
   end

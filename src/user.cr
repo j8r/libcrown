@@ -3,15 +3,33 @@ require "./password_state"
 # Represents a user line of `/etc/passwd`.
 struct Libcrown::User
   # Unique user name.
-  property name : String
+  getter name : String
+
+  # :ditto:
+  def name=(@name : String) : String
+    Libcrown.validate_name @name
+  end
+
   # Primary group ID.
   property gid : UInt32
   # Name is the user's real or display name.
   # It might be blank.
   # This is the first (or only) entry in the GECOS field list.
-  property full_name : String
+  getter full_name : String
+
+  # :ditto:
+  def full_name=(@full_name : String) : String
+    validate_gecos @full_name
+  end
+
   # Comment field to add informations related to the user, excluding the first one (full name).
-  property gecos_comment : String
+  getter gecos_comment : String
+
+  # :ditto:
+  def gecos_comment=(@gecos_comment : String) : String
+    validate_gecos @gecos_comment
+  end
+
   # Absolute path to the directory the user will be in when they log in. Defaults to `/` if not defined.
   property home_directory : String
   # Absolute path of a command (/bin/false) or shell (/bin/bash) executed at user's login.
@@ -38,10 +56,8 @@ struct Libcrown::User
     {uid.to_u32, user}
   end
 
-  # Validates the `name` and `gecos_comment` fields.
-  def validate : Nil
-    Libcrown.validate_name @name
-    {@full_name, @gecos_comment}.each &.each_char do |char|
+  private def validate_gecos(gecos : String) : Nil
+    gecos.each_char do |char|
       raise "invalid char in the GECOS comment field: `#{char}`" if char == ':' || !char.ascii?
     end
   end

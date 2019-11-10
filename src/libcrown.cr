@@ -105,7 +105,6 @@ struct Libcrown
   def add_group(group_entry : Group, gid : UInt32 = available_gid) : UInt32
     check_available_group group_entry.name
     check_available_gid gid
-    group_entry.validate
 
     @groups[gid] = group_entry
     gid
@@ -113,7 +112,6 @@ struct Libcrown
 
   # Adds a new user along, to an existing group.
   def add_user(user_entry : User, uid : UInt32 = available_uid, password_entry : Password = Password.new) : UInt32
-    user_entry.validate
     check_available_user user_entry.name
     check_available_uid uid
     raise "gid doens't exist: #{user_entry.gid}" if !@groups.has_key? user_entry.gid

@@ -25,9 +25,7 @@ dependencies:
 
 ## Documentation
 
-The documentation is accessible at https://j8r.github.io/libcrown.
-
-It is generated with [crystal docs](https://crystal-lang.org/docs/conventions/documenting_code.html) in the `gh-pages` branch.
+https://j8r.github.io/libcrown
 
 ## Usage
 

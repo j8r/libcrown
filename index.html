@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.30.1">
+
+
+<link href="css/style.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="js/doc.js"></script>
+<script type="text/javascript">
+  CrystalDoc.base_path = "";
+</script>
+
+  <meta id="repository-name" content="github.com/j8r/libcrown">
+  <title>README - github.com/j8r/libcrown</title>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="repository-links">
+      <a href="index.html">README</a>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent " data-id="github.com/j8r/libcrown/Libcrown" data-name="libcrown">
+      <a href="Libcrown.html">Libcrown</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/j8r/libcrown/Libcrown/Group" data-name="libcrown::group">
+      <a href="Libcrown/Group.html">Group</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/j8r/libcrown/Libcrown/Password" data-name="libcrown::password">
+      <a href="Libcrown/Password.html">Password</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/j8r/libcrown/Libcrown/Password/Encryption" data-name="libcrown::password::encryption">
+      <a href="Libcrown/Password/Encryption.html">Encryption</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/j8r/libcrown/Libcrown/PasswordState" data-name="libcrown::passwordstate">
+      <a href="Libcrown/PasswordState.html">PasswordState</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/j8r/libcrown/Libcrown/User" data-name="libcrown::user">
+      <a href="Libcrown/User.html">User</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1>Libcrown</h1>
+
+<p><a href="https://cloud.drone.io/j8r/libcrown" target="_blank"><img src="https://cloud.drone.io/api/badges/j8r/libcrown/status.svg" alt="Build Status"/></a>
+<a href="https://en.wikipedia.org/wiki/ISC_license" target="_blank"><img src="https://img.shields.io/badge/License-ISC-blue.svg?style=flat-square" alt="ISC"/></a></p>
+
+<p>Library for Unix users, groups and passwords manipulation.</p>
+
+<p>Can be used to perform actions in Crystal usually done by commands like <code>adduser</code>, <code>deluser</code>.</p>
+
+<h2>Warning</h2>
+
+<p>By essence, manipulating system users, groups and passwords is sensitive. Be careful and be sure of what you do before any action.</p>
+
+<p>This library is provided "as is", with no warranties, as stated in the <a href="LICENSE" target="_blank">ISC LICENSE</a>.</p>
+
+<h2>Installation</h2>
+
+<p>Add the dependency to your <code>shard.yml</code>:</p>
+
+<pre><code class="language-yaml">dependencies:
+  libcrown:
+    github: j8r/libcrown</code></pre>
+
+<h2>Documentation</h2>
+
+<p>https://j8r.github.io/libcrown</p>
+
+<h2>Usage</h2>
+
+<p>To add a new user</p>
+
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;libcrown&quot;</span>
+
+<span class="c"># Root permissions are needed</span>
+libcrown <span class="o">=</span> <span class="t">Libcrown</span>.<span class="k">new</span>
+
+<span class="c"># Add a new group</span>
+libcrown.add_group <span class="t">Libcrown</span><span class="t">::</span><span class="t">Group</span>.<span class="k">new</span>(<span class="s">&quot;new_group&quot;</span>), <span class="n">100_u32</span>
+
+<span class="c"># Add a new user with `new_group` as its main group</span>
+new_user <span class="o">=</span> <span class="t">Libcrown</span><span class="t">::</span><span class="t">User</span>.<span class="k">new</span>(
+  name:           <span class="s">&quot;new_user&quot;</span>,
+  gid:            <span class="n">100_u32</span>,
+  full_name:      <span class="s">&quot;New Usser&quot;</span>,
+  home_directory: <span class="s">&quot;/home/new_user&quot;</span>,
+  login_shell:    <span class="s">&quot;/bin/sh&quot;</span>,
+)
+libcrown.add_user new_user
+
+<span class="c"># Save the modifications to the disk</span>
+libcrown.write</code></pre>
+
+<h2>License</h2>
+
+<p>Copyright (c) 2018-2019 Julien Reichardt - ISC License</p>
+</div>
+</body>
+</html>

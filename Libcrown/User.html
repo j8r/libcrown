@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.30.1">
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="../js/doc.js"></script>
+<script type="text/javascript">
+  CrystalDoc.base_path = "../";
+</script>
+
+  <meta id="repository-name" content="github.com/j8r/libcrown">
+  <title>Libcrown::User - github.com/j8r/libcrown</title>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="repository-links">
+      <a href="../index.html">README</a>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="github.com/j8r/libcrown/Libcrown" data-name="libcrown">
+      <a href="../Libcrown.html">Libcrown</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/j8r/libcrown/Libcrown/Group" data-name="libcrown::group">
+      <a href="../Libcrown/Group.html">Group</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/j8r/libcrown/Libcrown/Password" data-name="libcrown::password">
+      <a href="../Libcrown/Password.html">Password</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/j8r/libcrown/Libcrown/Password/Encryption" data-name="libcrown::password::encryption">
+      <a href="../Libcrown/Password/Encryption.html">Encryption</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/j8r/libcrown/Libcrown/PasswordState" data-name="libcrown::passwordstate">
+      <a href="../Libcrown/PasswordState.html">PasswordState</a>
+      
+    </li>
+  
+  <li class=" current" data-id="github.com/j8r/libcrown/Libcrown/User" data-name="libcrown::user">
+      <a href="../Libcrown/User.html">User</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">struct</span> Libcrown::User
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Libcrown/User.html">Libcrown::User</a></li><li class="superclass">Struct</li><li class="superclass">Value</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>Overview</h2>
+
+  <p>Represents a user line of <code>/etc/passwd</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/user.cr#L4" target="_blank">
+        user.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Constructors</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new(name:String,gid:UInt32=100_u32,full_name:String=&quot;&quot;,gecos_comment:String=&quot;&quot;,home_directory:String=&quot;/&quot;,login_shell:String=&quot;/bin/false&quot;,password:PasswordState=PasswordState::Hashed)-class-method" class="signature"><strong>.new</strong>(name : String, gid : UInt32 = <span class="n">100_u32</span>, full_name : String = <span class="s">&quot;&quot;</span>, gecos_comment : String = <span class="s">&quot;&quot;</span>, home_directory : String = <span class="s">&quot;/&quot;</span>, login_shell : String = <span class="s">&quot;/bin/false&quot;</span>, password : PasswordState = <span class="t">PasswordState</span><span class="t">::</span><span class="t">Hashed</span>)</a>
+        
+          <div class="summary"><p>Creates a new user.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#full_name:String-instance-method" class="signature"><strong>#full_name</strong> : String</a>
+        
+          <div class="summary"><p>Name is the user's real or display name.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#full_name=(full_name:String):String-instance-method" class="signature"><strong>#full_name=</strong>(full_name : String) : String</a>
+        
+          <div class="summary"><p>Name is the user's real or display name.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#gecos_comment:String-instance-method" class="signature"><strong>#gecos_comment</strong> : String</a>
+        
+          <div class="summary"><p>Comment field to add informations related to the user, excluding the first one (full name).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#gecos_comment=(gecos_comment:String):String-instance-method" class="signature"><strong>#gecos_comment=</strong>(gecos_comment : String) : String</a>
+        
+          <div class="summary"><p>Comment field to add informations related to the user, excluding the first one (full name).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#gid:UInt32-instance-method" class="signature"><strong>#gid</strong> : UInt32</a>
+        
+          <div class="summary"><p>Primary group ID.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#gid=(gid:UInt32)-instance-method" class="signature"><strong>#gid=</strong>(gid : UInt32)</a>
+        
+          <div class="summary"><p>Primary group ID.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#home_directory:String-instance-method" class="signature"><strong>#home_directory</strong> : String</a>
+        
+          <div class="summary"><p>Absolute path to the directory the user will be in when they log in.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#home_directory=(home_directory:String)-instance-method" class="signature"><strong>#home_directory=</strong>(home_directory : String)</a>
+        
+          <div class="summary"><p>Absolute path to the directory the user will be in when they log in.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#login_shell:String-instance-method" class="signature"><strong>#login_shell</strong> : String</a>
+        
+          <div class="summary"><p>Absolute path of a command (/bin/false) or shell (/bin/bash) executed at user's login.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#login_shell=(login_shell:String)-instance-method" class="signature"><strong>#login_shell=</strong>(login_shell : String)</a>
+        
+          <div class="summary"><p>Absolute path of a command (/bin/false) or shell (/bin/bash) executed at user's login.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#name:String-instance-method" class="signature"><strong>#name</strong> : String</a>
+        
+          <div class="summary"><p>Unique user name.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#name=(name:String):String-instance-method" class="signature"><strong>#name=</strong>(name : String) : String</a>
+        
+          <div class="summary"><p>Unique user name.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#password:PasswordState-instance-method" class="signature"><strong>#password</strong> : PasswordState</a>
+        
+          <div class="summary"><p>Usually hashed password stored in <code>/etc/shadow</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#password=(password:PasswordState)-instance-method" class="signature"><strong>#password=</strong>(password : PasswordState)</a>
+        
+          <div class="summary"><p>Usually hashed password stored in <code>/etc/shadow</code>.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>Constructor Detail</h2>
+  
+    <div class="entry-detail" id="new(name:String,gid:UInt32=100_u32,full_name:String=&amp;quot;&amp;quot;,gecos_comment:String=&amp;quot;&amp;quot;,home_directory:String=&amp;quot;/&amp;quot;,login_shell:String=&amp;quot;/bin/false&amp;quot;,password:PasswordState=PasswordState::Hashed)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(name : String, gid : UInt32 = <span class="n">100_u32</span>, full_name : String = <span class="s">&quot;&quot;</span>, gecos_comment : String = <span class="s">&quot;&quot;</span>, home_directory : String = <span class="s">&quot;/&quot;</span>, login_shell : String = <span class="s">&quot;/bin/false&quot;</span>, password : <a href="../Libcrown/PasswordState.html">PasswordState</a> = <span class="t">PasswordState</span><span class="t">::</span><span class="t">Hashed</span>)
+
+        <a class="method-permalink" href="#new(name:String,gid:UInt32=100_u32,full_name:String=&quot;&quot;,gecos_comment:String=&quot;&quot;,home_directory:String=&quot;/&quot;,login_shell:String=&quot;/bin/false&quot;,password:PasswordState=PasswordState::Hashed)-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Creates a new user.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/user.cr#L41" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail" id="full_name:String-instance-method">
+      <div class="signature">
+        
+        def <strong>full_name</strong> : String
+
+        <a class="method-permalink" href="#full_name:String-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Name is the user's real or display name.
+It might be blank.
+This is the first (or only) entry in the GECOS field list.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/user.cr#L20" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="full_name=(full_name:String):String-instance-method">
+      <div class="signature">
+        
+        def <strong>full_name=</strong>(full_name : String) : String
+
+        <a class="method-permalink" href="#full_name=(full_name:String):String-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Name is the user's real or display name.
+It might be blank.
+This is the first (or only) entry in the GECOS field list.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/user.cr#L21" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="gecos_comment:String-instance-method">
+      <div class="signature">
+        
+        def <strong>gecos_comment</strong> : String
+
+        <a class="method-permalink" href="#gecos_comment:String-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Comment field to add informations related to the user, excluding the first one (full name).</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/user.cr#L28" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="gecos_comment=(gecos_comment:String):String-instance-method">
+      <div class="signature">
+        
+        def <strong>gecos_comment=</strong>(gecos_comment : String) : String
+
+        <a class="method-permalink" href="#gecos_comment=(gecos_comment:String):String-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Comment field to add informations related to the user, excluding the first one (full name).</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/user.cr#L29" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="gid:UInt32-instance-method">
+      <div class="signature">
+        
+        def <strong>gid</strong> : UInt32
+
+        <a class="method-permalink" href="#gid:UInt32-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Primary group ID.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/user.cr#L16" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="gid=(gid:UInt32)-instance-method">
+      <div class="signature">
+        
+        def <strong>gid=</strong>(gid : UInt32)
+
+        <a class="method-permalink" href="#gid=(gid:UInt32)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Primary group ID.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/user.cr#L20" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="home_directory:String-instance-method">
+      <div class="signature">
+        
+        def <strong>home_directory</strong> : String
+
+        <a class="method-permalink" href="#home_directory:String-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Absolute path to the directory the user will be in when they log in. Defaults to <code>/</code> if not defined.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/user.cr#L36" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="home_directory=(home_directory:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>home_directory=</strong>(home_directory : String)
+
+        <a class="method-permalink" href="#home_directory=(home_directory:String)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Absolute path to the directory the user will be in when they log in. Defaults to <code>/</code> if not defined.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/user.cr#L40" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="login_shell:String-instance-method">
+      <div class="signature">
+        
+        def <strong>login_shell</strong> : String
+
+        <a class="method-permalink" href="#login_shell:String-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Absolute path of a command (/bin/false) or shell (/bin/bash) executed at user's login.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/user.cr#L38" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="login_shell=(login_shell:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>login_shell=</strong>(login_shell : String)
+
+        <a class="method-permalink" href="#login_shell=(login_shell:String)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Absolute path of a command (/bin/false) or shell (/bin/bash) executed at user's login.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/user.cr#L42" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="name:String-instance-method">
+      <div class="signature">
+        
+        def <strong>name</strong> : String
+
+        <a class="method-permalink" href="#name:String-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Unique user name.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/user.cr#L8" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="name=(name:String):String-instance-method">
+      <div class="signature">
+        
+        def <strong>name=</strong>(name : String) : String
+
+        <a class="method-permalink" href="#name=(name:String):String-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Unique user name.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/user.cr#L9" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="password:PasswordState-instance-method">
+      <div class="signature">
+        
+        def <strong>password</strong> : <a href="../Libcrown/PasswordState.html">PasswordState</a>
+
+        <a class="method-permalink" href="#password:PasswordState-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Usually hashed password stored in <code>/etc/shadow</code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/user.cr#L40" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="password=(password:PasswordState)-instance-method">
+      <div class="signature">
+        
+        def <strong>password=</strong>(password : <a href="../Libcrown/PasswordState.html">PasswordState</a>)
+
+        <a class="method-permalink" href="#password=(password:PasswordState)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Usually hashed password stored in <code>/etc/shadow</code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/user.cr#L44" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>

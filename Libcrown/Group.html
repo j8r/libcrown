@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.30.1">
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="../js/doc.js"></script>
+<script type="text/javascript">
+  CrystalDoc.base_path = "../";
+</script>
+
+  <meta id="repository-name" content="github.com/j8r/libcrown">
+  <title>Libcrown::Group - github.com/j8r/libcrown</title>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="repository-links">
+      <a href="../index.html">README</a>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="github.com/j8r/libcrown/Libcrown" data-name="libcrown">
+      <a href="../Libcrown.html">Libcrown</a>
+      
+        <ul>
+  
+  <li class=" current" data-id="github.com/j8r/libcrown/Libcrown/Group" data-name="libcrown::group">
+      <a href="../Libcrown/Group.html">Group</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/j8r/libcrown/Libcrown/Password" data-name="libcrown::password">
+      <a href="../Libcrown/Password.html">Password</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/j8r/libcrown/Libcrown/Password/Encryption" data-name="libcrown::password::encryption">
+      <a href="../Libcrown/Password/Encryption.html">Encryption</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/j8r/libcrown/Libcrown/PasswordState" data-name="libcrown::passwordstate">
+      <a href="../Libcrown/PasswordState.html">PasswordState</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/j8r/libcrown/Libcrown/User" data-name="libcrown::user">
+      <a href="../Libcrown/User.html">User</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">struct</span> Libcrown::Group
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Libcrown/Group.html">Libcrown::Group</a></li><li class="superclass">Struct</li><li class="superclass">Value</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>Overview</h2>
+
+  <p>Represents a password line of <code>/etc/group</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/group.cr#L4" target="_blank">
+        group.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Constructors</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new(name:String,users:Set(String)=Set(String).new,password:PasswordState=PasswordState::Hashed)-class-method" class="signature"><strong>.new</strong>(name : String, users : Set(String) = <span class="t">Set</span>(<span class="t">String</span>).<span class="k">new</span>, password : PasswordState = <span class="t">PasswordState</span><span class="t">::</span><span class="t">Hashed</span>)</a>
+        
+          <div class="summary"><p>Creates a new group.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#name:String-instance-method" class="signature"><strong>#name</strong> : String</a>
+        
+          <div class="summary"><p>Unique group name.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#name=(name:String):String-instance-method" class="signature"><strong>#name=</strong>(name : String) : String</a>
+        
+          <div class="summary"><p>Unique group name.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#password:PasswordState-instance-method" class="signature"><strong>#password</strong> : PasswordState</a>
+        
+          <div class="summary"><p>Generally unused empty/blank password (set to <code><a href="../Libcrown/PasswordState.html#Hashed">PasswordState::Hashed</a></code>).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#password=(password:PasswordState)-instance-method" class="signature"><strong>#password=</strong>(password : PasswordState)</a>
+        
+          <div class="summary"><p>Generally unused empty/blank password (set to <code><a href="../Libcrown/PasswordState.html#Hashed">PasswordState::Hashed</a></code>).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#users:Set(String)-instance-method" class="signature"><strong>#users</strong> : Set(String)</a>
+        
+          <div class="summary"><p>Users who are members of the group.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#users=(users:Set(String))-instance-method" class="signature"><strong>#users=</strong>(users : Set(String))</a>
+        
+          <div class="summary"><p>Users who are members of the group.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>Constructor Detail</h2>
+  
+    <div class="entry-detail" id="new(name:String,users:Set(String)=Set(String).new,password:PasswordState=PasswordState::Hashed)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(name : String, users : Set(String) = <span class="t">Set</span>(<span class="t">String</span>).<span class="k">new</span>, password : <a href="../Libcrown/PasswordState.html">PasswordState</a> = <span class="t">PasswordState</span><span class="t">::</span><span class="t">Hashed</span>)
+
+        <a class="method-permalink" href="#new(name:String,users:Set(String)=Set(String).new,password:PasswordState=PasswordState::Hashed)-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Creates a new group.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/group.cr#L19" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail" id="name:String-instance-method">
+      <div class="signature">
+        
+        def <strong>name</strong> : String
+
+        <a class="method-permalink" href="#name:String-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Unique group name.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/group.cr#L8" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="name=(name:String):String-instance-method">
+      <div class="signature">
+        
+        def <strong>name=</strong>(name : String) : String
+
+        <a class="method-permalink" href="#name=(name:String):String-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Unique group name.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/group.cr#L9" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="password:PasswordState-instance-method">
+      <div class="signature">
+        
+        def <strong>password</strong> : <a href="../Libcrown/PasswordState.html">PasswordState</a>
+
+        <a class="method-permalink" href="#password:PasswordState-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generally unused empty/blank password (set to <code><a href="../Libcrown/PasswordState.html#Hashed">PasswordState::Hashed</a></code>).</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/group.cr#L18" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="password=(password:PasswordState)-instance-method">
+      <div class="signature">
+        
+        def <strong>password=</strong>(password : <a href="../Libcrown/PasswordState.html">PasswordState</a>)
+
+        <a class="method-permalink" href="#password=(password:PasswordState)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generally unused empty/blank password (set to <code><a href="../Libcrown/PasswordState.html#Hashed">PasswordState::Hashed</a></code>).</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/group.cr#L22" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="users:Set(String)-instance-method">
+      <div class="signature">
+        
+        def <strong>users</strong> : Set(String)
+
+        <a class="method-permalink" href="#users:Set(String)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Users who are members of the group.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/group.cr#L16" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="users=(users:Set(String))-instance-method">
+      <div class="signature">
+        
+        def <strong>users=</strong>(users : Set(String))
+
+        <a class="method-permalink" href="#users=(users:Set(String))-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Users who are members of the group.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/group.cr#L20" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>

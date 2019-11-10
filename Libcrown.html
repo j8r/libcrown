@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.30.1">
+
+
+<link href="css/style.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="js/doc.js"></script>
+<script type="text/javascript">
+  CrystalDoc.base_path = "";
+</script>
+
+  <meta id="repository-name" content="github.com/j8r/libcrown">
+  <title>Libcrown - github.com/j8r/libcrown</title>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="repository-links">
+      <a href="index.html">README</a>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="github.com/j8r/libcrown/Libcrown" data-name="libcrown">
+      <a href="Libcrown.html">Libcrown</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/j8r/libcrown/Libcrown/Group" data-name="libcrown::group">
+      <a href="Libcrown/Group.html">Group</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/j8r/libcrown/Libcrown/Password" data-name="libcrown::password">
+      <a href="Libcrown/Password.html">Password</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/j8r/libcrown/Libcrown/Password/Encryption" data-name="libcrown::password::encryption">
+      <a href="Libcrown/Password/Encryption.html">Encryption</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/j8r/libcrown/Libcrown/PasswordState" data-name="libcrown::passwordstate">
+      <a href="Libcrown/PasswordState.html">PasswordState</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/j8r/libcrown/Libcrown/User" data-name="libcrown::user">
+      <a href="Libcrown/User.html">User</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">struct</span> Libcrown
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="Libcrown.html">Libcrown</a></li><li class="superclass">Struct</li><li class="superclass">Value</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>Overview</h2>
+
+  <p>Safe High level API to manipulate users, groups and passwords from /etc/passwd, /etc/group and /etc/shadow.</p>
+
+<p>It's highly recommended to use this wrapper for any manipulation. <code><a href="Libcrown.html#users:Hash(UInt32,User)-instance-method">#users</a></code>, <code><a href="Libcrown.html#groups:Hash(UInt32,Group)-instance-method">#groups</a></code> and <code><a href="Libcrown.html#passwords:Hash(String,Password)-instance-method">#passwords</a></code>
+getters have to be considered read-only.</p>
+
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;libcrown&quot;</span>
+
+<span class="c"># Root permissions are needed</span>
+libcrown <span class="o">=</span> <span class="t">Libcrown</span>.<span class="k">new</span>
+
+<span class="c"># Add a new group</span>
+libcrown.add_group <span class="t">Libcrown</span><span class="t">::</span><span class="t">Group</span>.<span class="k">new</span>(<span class="s">&quot;new_group&quot;</span>), <span class="n">100_u32</span>
+
+<span class="c"># Add a new user with `new_group` as its main group</span>
+new_user <span class="o">=</span> <span class="t">Libcrown</span><span class="t">::</span><span class="t">User</span>.<span class="k">new</span>(
+  name: <span class="s">&quot;new_user&quot;</span>,
+  gid: <span class="n">100_u32</span>,
+  gecos_comment: <span class="s">&quot;This is a newly created user&quot;</span>,
+  home_directory: <span class="s">&quot;/home/new_user&quot;</span>,
+  login_shell: <span class="s">&quot;/bin/sh&quot;</span>,
+)
+libcrown.add_user new_user
+
+<span class="c"># Save the modifications to the disk</span>
+libcrown.write</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/password_state.cr#L1" target="_blank">
+        password_state.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L29" target="_blank">
+        libcrown.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Constructors</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new(shadow_file:Path?=Path[&quot;/etc/shadow&quot;],passwd_file:Path?=Path[&quot;/etc/passwd&quot;],group_file:Path?=Path[&quot;/etc/group&quot;])-class-method" class="signature"><strong>.new</strong>(shadow_file : Path? = <span class="t">Path</span>[<span class="s">&quot;/etc/shadow&quot;</span>], passwd_file : Path? = <span class="t">Path</span>[<span class="s">&quot;/etc/passwd&quot;</span>], group_file : Path? = <span class="t">Path</span>[<span class="s">&quot;/etc/group&quot;</span>])</a>
+        
+          <div class="summary"><p>Requires root permissions to read the shadow file and write passwd and group files As non-root, to only read passwd and group files <code></code>`crystal libcrown = Libcrown.new nil <code></code>` </p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new(shadow:String=&quot;&quot;,passwd:String=&quot;&quot;,group:String=&quot;&quot;)-class-method" class="signature"><strong>.new</strong>(shadow : String = <span class="s">&quot;&quot;</span>, passwd : String = <span class="s">&quot;&quot;</span>, group : String = <span class="s">&quot;&quot;</span>)</a>
+        
+          <div class="summary"><p>Parse shadow, passwd and group files from strings.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Class Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#validate_name(name:String):Nil-class-method" class="signature"><strong>.validate_name</strong>(name : String) : Nil</a>
+        
+          <div class="summary"><p>Validates a name for use as user or group name.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#add_group(group_entry:Group,gid:UInt32=available_gid):UInt32-instance-method" class="signature"><strong>#add_group</strong>(group_entry : Group, gid : UInt32 = available_gid) : UInt32</a>
+        
+          <div class="summary"><p>Add a new group.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#add_group_member(uid:UInt32,gid:UInt32):Set(String)-instance-method" class="signature"><strong>#add_group_member</strong>(uid : UInt32, gid : UInt32) : Set(String)</a>
+        
+          <div class="summary"><p>Adds/ensure an user is member of the group.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#add_user(user_entry:User,uid:UInt32=available_uid,password_entry:Password=Password.new):UInt32-instance-method" class="signature"><strong>#add_user</strong>(user_entry : User, uid : UInt32 = available_uid, password_entry : Password = <span class="t">Password</span>.<span class="k">new</span>) : UInt32</a>
+        
+          <div class="summary"><p>Adds a new user along, to an existing group.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#available_gid(start:UInt32=0_u32):UInt32-instance-method" class="signature"><strong>#available_gid</strong>(start : UInt32 = <span class="n">0_u32</span>) : UInt32</a>
+        
+          <div class="summary"><p>Returns the first available gid.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#available_id(start:UInt32=0_u32):UInt32-instance-method" class="signature"><strong>#available_id</strong>(start : UInt32 = <span class="n">0_u32</span>) : UInt32</a>
+        
+          <div class="summary"><p>Finds the first available user and group id.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#available_uid(start:UInt32=0_u32):UInt32-instance-method" class="signature"><strong>#available_uid</strong>(start : UInt32 = <span class="n">0_u32</span>) : UInt32</a>
+        
+          <div class="summary"><p>Returns the first available uid.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_group:String-instance-method" class="signature"><strong>#build_group</strong> : String</a>
+        
+          <div class="summary"><p>Builds <code><a href="Libcrown.html#groups:Hash(UInt32,Group)-instance-method">#groups</a></code> to group.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_passwd:String-instance-method" class="signature"><strong>#build_passwd</strong> : String</a>
+        
+          <div class="summary"><p>Builds <code><a href="Libcrown.html#users:Hash(UInt32,User)-instance-method">#users</a></code> to passwd.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_shadow:String-instance-method" class="signature"><strong>#build_shadow</strong> : String</a>
+        
+          <div class="summary"><p>Builds <code><a href="Libcrown.html#passwords:Hash(String,Password)-instance-method">#passwords</a></code> to shadow.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#change_password(uid:UInt32,password:Password):Password-instance-method" class="signature"><strong>#change_password</strong>(uid : UInt32, password : Password) : Password</a>
+        
+          <div class="summary"><p>Change the user's password entry.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#check_available_gid(id:UInt32):UInt32-instance-method" class="signature"><strong>#check_available_gid</strong>(id : UInt32) : UInt32</a>
+        
+          <div class="summary"><p>Raise if the gid is taken.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#check_available_group(name:String):String-instance-method" class="signature"><strong>#check_available_group</strong>(name : String) : String</a>
+        
+          <div class="summary"><p>Raise if the group name is taken.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#check_available_id(id:UInt32):UInt32-instance-method" class="signature"><strong>#check_available_id</strong>(id : UInt32) : UInt32</a>
+        
+          <div class="summary"><p>Raise if an id is taken.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#check_available_name(name:String):String-instance-method" class="signature"><strong>#check_available_name</strong>(name : String) : String</a>
+        
+          <div class="summary"><p>Raise if the name is taken.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#check_available_uid(id:UInt32):UInt32-instance-method" class="signature"><strong>#check_available_uid</strong>(id : UInt32) : UInt32</a>
+        
+          <div class="summary"><p>Raise if the uid is taken.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#check_available_user(name:String):String-instance-method" class="signature"><strong>#check_available_user</strong>(name : String) : String</a>
+        
+          <div class="summary"><p>Raise if the user name is taken.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#del_group(gid:UInt32):Group?-instance-method" class="signature"><strong>#del_group</strong>(gid : UInt32) : Group?</a>
+        
+          <div class="summary"><p>Deletes a group.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#del_group_member(uid:UInt32,gid:UInt32):Set(String)-instance-method" class="signature"><strong>#del_group_member</strong>(uid : UInt32, gid : UInt32) : Set(String)</a>
+        
+          <div class="summary"><p>Delete?/ensure an user isn't a member of the group.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#del_user(uid:UInt32,del_group:Bool=false):User?-instance-method" class="signature"><strong>#del_user</strong>(uid : UInt32, del_group : Bool = <span class="n">false</span>) : User?</a>
+        
+          <div class="summary"><p>Delete an user and optionally with its main group, returns the deleted <code><a href="Libcrown/User.html">User</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_password(uid:UInt32):Password-instance-method" class="signature"><strong>#get_password</strong>(uid : UInt32) : Password</a>
+        
+          <div class="summary"><p>Get the user's password entry.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#group_file:Path?-instance-method" class="signature"><strong>#group_file</strong> : Path?</a>
+        
+          <div class="summary"><p>Group file, commonly stored in <code>/etc/group</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#groups:Hash(UInt32,Group)-instance-method" class="signature"><strong>#groups</strong> : Hash(UInt32, Group)</a>
+        
+          <div class="summary"><p>System groups.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#passwd_file:Path?-instance-method" class="signature"><strong>#passwd_file</strong> : Path?</a>
+        
+          <div class="summary"><p>User file, commonly stored in <code>/etc/passwd</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#passwords:Hash(String,Password)-instance-method" class="signature"><strong>#passwords</strong> : Hash(String, Password)</a>
+        
+          <div class="summary"><p>User's passwords.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#shadow_file:Path?-instance-method" class="signature"><strong>#shadow_file</strong> : Path?</a>
+        
+          <div class="summary"><p>Password file, commonly stored in <code>/etc/shadow</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_gid(name:String,&block)-instance-method" class="signature"><strong>#to_gid</strong>(name : String, &block)</a>
+        
+          <div class="summary"><p>Yields each gid matching the name.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_gid(name:String):UInt32-instance-method" class="signature"><strong>#to_gid</strong>(name : String) : UInt32</a>
+        
+          <div class="summary"><p>Returns an gid matching the name, else raise.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_gid?(name:String):UInt32?-instance-method" class="signature"><strong>#to_gid?</strong>(name : String) : UInt32?</a>
+        
+          <div class="summary"><p>Returns an gid matching the name, if any.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_uid(name:String,&block)-instance-method" class="signature"><strong>#to_uid</strong>(name : String, &block)</a>
+        
+          <div class="summary"><p>Yields each uid matching the name.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_uid(name:String):UInt32-instance-method" class="signature"><strong>#to_uid</strong>(name : String) : UInt32</a>
+        
+          <div class="summary"><p>Returns an uid matching the name, else raise.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_uid?(name:String):UInt32?-instance-method" class="signature"><strong>#to_uid?</strong>(name : String) : UInt32?</a>
+        
+          <div class="summary"><p>Returns an uid matching the name, if any.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#user_group_member?(uid:UInt32,gid:UInt32):Bool-instance-method" class="signature"><strong>#user_group_member?</strong>(uid : UInt32, gid : UInt32) : Bool</a>
+        
+          <div class="summary"><p>Returns <code>true</code> if the user is a member of the group or if the group is primary one of the user.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#users:Hash(UInt32,User)-instance-method" class="signature"><strong>#users</strong> : Hash(UInt32, User)</a>
+        
+          <div class="summary"><p>System users.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#write:Nil-instance-method" class="signature"><strong>#write</strong> : Nil</a>
+        
+          <div class="summary"><p>Save the state by writing the files to the file system.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>Constructor Detail</h2>
+  
+    <div class="entry-detail" id="new(shadow_file:Path?=Path[&amp;quot;/etc/shadow&amp;quot;],passwd_file:Path?=Path[&amp;quot;/etc/passwd&amp;quot;],group_file:Path?=Path[&amp;quot;/etc/group&amp;quot;])-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(shadow_file : Path? = <span class="t">Path</span>[<span class="s">&quot;/etc/shadow&quot;</span>], passwd_file : Path? = <span class="t">Path</span>[<span class="s">&quot;/etc/passwd&quot;</span>], group_file : Path? = <span class="t">Path</span>[<span class="s">&quot;/etc/group&quot;</span>])
+
+        <a class="method-permalink" href="#new(shadow_file:Path?=Path[&quot;/etc/shadow&quot;],passwd_file:Path?=Path[&quot;/etc/passwd&quot;],group_file:Path?=Path[&quot;/etc/group&quot;])-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Requires root permissions to read the shadow file and write passwd and group files
+As non-root, to only read passwd and group files</p>
+
+<pre><code class="language-crystal">libcrown <span class="o">=</span> <span class="t">Libcrown</span>.<span class="k">new</span> <span class="n">nil</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L49" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="new(shadow:String=&amp;quot;&amp;quot;,passwd:String=&amp;quot;&amp;quot;,group:String=&amp;quot;&amp;quot;)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(shadow : String = <span class="s">&quot;&quot;</span>, passwd : String = <span class="s">&quot;&quot;</span>, group : String = <span class="s">&quot;&quot;</span>)
+
+        <a class="method-permalink" href="#new(shadow:String=&quot;&quot;,passwd:String=&quot;&quot;,group:String=&quot;&quot;)-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Parse shadow, passwd and group files from strings.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L73" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail" id="validate_name(name:String):Nil-class-method">
+      <div class="signature">
+        
+        def self.<strong>validate_name</strong>(name : String) : Nil
+
+        <a class="method-permalink" href="#validate_name(name:String):Nil-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Validates a name for use as user or group name.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L91" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail" id="add_group(group_entry:Group,gid:UInt32=available_gid):UInt32-instance-method">
+      <div class="signature">
+        
+        def <strong>add_group</strong>(group_entry : <a href="Libcrown/Group.html">Group</a>, gid : UInt32 = available_gid) : UInt32
+
+        <a class="method-permalink" href="#add_group(group_entry:Group,gid:UInt32=available_gid):UInt32-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Add a new group.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L105" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="add_group_member(uid:UInt32,gid:UInt32):Set(String)-instance-method">
+      <div class="signature">
+        
+        def <strong>add_group_member</strong>(uid : UInt32, gid : UInt32) : Set(String)
+
+        <a class="method-permalink" href="#add_group_member(uid:UInt32,gid:UInt32):Set(String)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Adds/ensure an user is member of the group. Not needed if the group is the main one of the user.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L149" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="add_user(user_entry:User,uid:UInt32=available_uid,password_entry:Password=Password.new):UInt32-instance-method">
+      <div class="signature">
+        
+        def <strong>add_user</strong>(user_entry : <a href="Libcrown/User.html">User</a>, uid : UInt32 = available_uid, password_entry : <a href="Libcrown/Password.html">Password</a> = <span class="t">Password</span>.<span class="k">new</span>) : UInt32
+
+        <a class="method-permalink" href="#add_user(user_entry:User,uid:UInt32=available_uid,password_entry:Password=Password.new):UInt32-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Adds a new user along, to an existing group.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L114" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="available_gid(start:UInt32=0_u32):UInt32-instance-method">
+      <div class="signature">
+        
+        def <strong>available_gid</strong>(start : UInt32 = <span class="n">0_u32</span>) : UInt32
+
+        <a class="method-permalink" href="#available_gid(start:UInt32=0_u32):UInt32-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the first available gid.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L173" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="available_id(start:UInt32=0_u32):UInt32-instance-method">
+      <div class="signature">
+        
+        def <strong>available_id</strong>(start : UInt32 = <span class="n">0_u32</span>) : UInt32
+
+        <a class="method-permalink" href="#available_id(start:UInt32=0_u32):UInt32-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Finds the first available user and group id.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L224" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="available_uid(start:UInt32=0_u32):UInt32-instance-method">
+      <div class="signature">
+        
+        def <strong>available_uid</strong>(start : UInt32 = <span class="n">0_u32</span>) : UInt32
+
+        <a class="method-permalink" href="#available_uid(start:UInt32=0_u32):UInt32-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the first available uid.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L173" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_group:String-instance-method">
+      <div class="signature">
+        
+        def <strong>build_group</strong> : String
+
+        <a class="method-permalink" href="#build_group:String-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Builds <code><a href="Libcrown.html#groups:Hash(UInt32,Group)-instance-method">#groups</a></code> to group.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L264" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_passwd:String-instance-method">
+      <div class="signature">
+        
+        def <strong>build_passwd</strong> : String
+
+        <a class="method-permalink" href="#build_passwd:String-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Builds <code><a href="Libcrown.html#users:Hash(UInt32,User)-instance-method">#users</a></code> to passwd.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L259" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_shadow:String-instance-method">
+      <div class="signature">
+        
+        def <strong>build_shadow</strong> : String
+
+        <a class="method-permalink" href="#build_shadow:String-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Builds <code><a href="Libcrown.html#passwords:Hash(String,Password)-instance-method">#passwords</a></code> to shadow.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L254" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="change_password(uid:UInt32,password:Password):Password-instance-method">
+      <div class="signature">
+        
+        def <strong>change_password</strong>(uid : UInt32, password : <a href="Libcrown/Password.html">Password</a>) : <a href="Libcrown/Password.html">Password</a>
+
+        <a class="method-permalink" href="#change_password(uid:UInt32,password:Password):Password-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Change the user's password entry.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L169" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="check_available_gid(id:UInt32):UInt32-instance-method">
+      <div class="signature">
+        
+        def <strong>check_available_gid</strong>(id : UInt32) : UInt32
+
+        <a class="method-permalink" href="#check_available_gid(id:UInt32):UInt32-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Raise if the gid is taken.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L173" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="check_available_group(name:String):String-instance-method">
+      <div class="signature">
+        
+        def <strong>check_available_group</strong>(name : String) : String
+
+        <a class="method-permalink" href="#check_available_group(name:String):String-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Raise if the group name is taken.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L173" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="check_available_id(id:UInt32):UInt32-instance-method">
+      <div class="signature">
+        
+        def <strong>check_available_id</strong>(id : UInt32) : UInt32
+
+        <a class="method-permalink" href="#check_available_id(id:UInt32):UInt32-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Raise if an id is taken.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L239" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="check_available_name(name:String):String-instance-method">
+      <div class="signature">
+        
+        def <strong>check_available_name</strong>(name : String) : String
+
+        <a class="method-permalink" href="#check_available_name(name:String):String-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Raise if the name is taken.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L233" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="check_available_uid(id:UInt32):UInt32-instance-method">
+      <div class="signature">
+        
+        def <strong>check_available_uid</strong>(id : UInt32) : UInt32
+
+        <a class="method-permalink" href="#check_available_uid(id:UInt32):UInt32-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Raise if the uid is taken.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L173" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="check_available_user(name:String):String-instance-method">
+      <div class="signature">
+        
+        def <strong>check_available_user</strong>(name : String) : String
+
+        <a class="method-permalink" href="#check_available_user(name:String):String-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Raise if the user name is taken.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L173" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="del_group(gid:UInt32):Group?-instance-method">
+      <div class="signature">
+        
+        def <strong>del_group</strong>(gid : UInt32) : <a href="Libcrown/Group.html">Group</a>?
+
+        <a class="method-permalink" href="#del_group(gid:UInt32):Group?-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Deletes a group.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L124" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="del_group_member(uid:UInt32,gid:UInt32):Set(String)-instance-method">
+      <div class="signature">
+        
+        def <strong>del_group_member</strong>(uid : UInt32, gid : UInt32) : Set(String)
+
+        <a class="method-permalink" href="#del_group_member(uid:UInt32,gid:UInt32):Set(String)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Delete?/ensure an user isn't a member of the group.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L154" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="del_user(uid:UInt32,del_group:Bool=false):User?-instance-method">
+      <div class="signature">
+        
+        def <strong>del_user</strong>(uid : UInt32, del_group : Bool = <span class="n">false</span>) : <a href="Libcrown/User.html">User</a>?
+
+        <a class="method-permalink" href="#del_user(uid:UInt32,del_group:Bool=false):User?-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Delete an user and optionally with its main group, returns the deleted <code><a href="Libcrown/User.html">User</a></code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L132" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="get_password(uid:UInt32):Password-instance-method">
+      <div class="signature">
+        
+        def <strong>get_password</strong>(uid : UInt32) : <a href="Libcrown/Password.html">Password</a>
+
+        <a class="method-permalink" href="#get_password(uid:UInt32):Password-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Get the user's password entry.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L164" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="group_file:Path?-instance-method">
+      <div class="signature">
+        
+        def <strong>group_file</strong> : Path?
+
+        <a class="method-permalink" href="#group_file:Path?-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Group file, commonly stored in <code>/etc/group</code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L41" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="groups:Hash(UInt32,Group)-instance-method">
+      <div class="signature">
+        
+        def <strong>groups</strong> : Hash(UInt32, <a href="Libcrown/Group.html">Group</a>)
+
+        <a class="method-permalink" href="#groups:Hash(UInt32,Group)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>System groups. Modifying it directly is <strong>unsafe</strong>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L35" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="passwd_file:Path?-instance-method">
+      <div class="signature">
+        
+        def <strong>passwd_file</strong> : Path?
+
+        <a class="method-permalink" href="#passwd_file:Path?-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>User file, commonly stored in <code>/etc/passwd</code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L39" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="passwords:Hash(String,Password)-instance-method">
+      <div class="signature">
+        
+        def <strong>passwords</strong> : Hash(String, <a href="Libcrown/Password.html">Password</a>)
+
+        <a class="method-permalink" href="#passwords:Hash(String,Password)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>User's passwords. Modifying it directly is <strong>unsafe</strong>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L37" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="shadow_file:Path?-instance-method">
+      <div class="signature">
+        
+        def <strong>shadow_file</strong> : Path?
+
+        <a class="method-permalink" href="#shadow_file:Path?-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Password file, commonly stored in <code>/etc/shadow</code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L43" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_gid(name:String,&amp;block)-instance-method">
+      <div class="signature">
+        
+        def <strong>to_gid</strong>(name : String, &block)
+
+        <a class="method-permalink" href="#to_gid(name:String,&block)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Yields each gid matching the name.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L173" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_gid(name:String):UInt32-instance-method">
+      <div class="signature">
+        
+        def <strong>to_gid</strong>(name : String) : UInt32
+
+        <a class="method-permalink" href="#to_gid(name:String):UInt32-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns an gid matching the name, else raise.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L173" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_gid?(name:String):UInt32?-instance-method">
+      <div class="signature">
+        
+        def <strong>to_gid?</strong>(name : String) : UInt32?
+
+        <a class="method-permalink" href="#to_gid?(name:String):UInt32?-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns an gid matching the name, if any.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L173" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_uid(name:String,&amp;block)-instance-method">
+      <div class="signature">
+        
+        def <strong>to_uid</strong>(name : String, &block)
+
+        <a class="method-permalink" href="#to_uid(name:String,&block)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Yields each uid matching the name.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L173" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_uid(name:String):UInt32-instance-method">
+      <div class="signature">
+        
+        def <strong>to_uid</strong>(name : String) : UInt32
+
+        <a class="method-permalink" href="#to_uid(name:String):UInt32-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns an uid matching the name, else raise.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L173" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_uid?(name:String):UInt32?-instance-method">
+      <div class="signature">
+        
+        def <strong>to_uid?</strong>(name : String) : UInt32?
+
+        <a class="method-permalink" href="#to_uid?(name:String):UInt32?-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns an uid matching the name, if any.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L173" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="user_group_member?(uid:UInt32,gid:UInt32):Bool-instance-method">
+      <div class="signature">
+        
+        def <strong>user_group_member?</strong>(uid : UInt32, gid : UInt32) : Bool
+
+        <a class="method-permalink" href="#user_group_member?(uid:UInt32,gid:UInt32):Bool-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if the user is a member of the group or if the group is primary one of the user.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L159" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="users:Hash(UInt32,User)-instance-method">
+      <div class="signature">
+        
+        def <strong>users</strong> : Hash(UInt32, <a href="Libcrown/User.html">User</a>)
+
+        <a class="method-permalink" href="#users:Hash(UInt32,User)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>System users. Modifying it directly is <strong>unsafe</strong>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L33" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="write:Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>write</strong> : Nil
+
+        <a class="method-permalink" href="#write:Nil-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Save the state by writing the files to the file system.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/j8r/libcrown/blob/c54ca15847f49c6c7ce5d46dfc4248f32fd8281d/src/libcrown.cr#L269" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>

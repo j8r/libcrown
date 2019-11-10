@@ -70,14 +70,14 @@ struct Libcrown::Password
   end
 
   # Encrypt a password. Can be used to create or update the password.
-  def encrypt(password : String, @crypto : Algorithm = Algorithm::SHA512, @salt : String? = Random::Secure.base64.rchop.rchop, @days_last_change : UInt32? = (Time.utc_now - Time::UNIX_EPOCH).days.to_u32) : UInt32
+  def encrypt(password : String, @crypto : Algorithm = Algorithm::SHA512, @salt : String? = Random::Secure.base64.rchop.rchop, @days_last_change : UInt32? = (Time.utc - Time::UNIX_EPOCH).days.to_u32) : UInt32
     crypto_salt = crypto.build + salt.to_s
     @hash = String.new(LibC.crypt password, crypto_salt).lstrip crypto_salt
     @days_last_change
   end
 
   # Create a new encrypted password.
-  def self.new(password : String, crypto : Encryption = Encryption::SHA512, salt : String? = Random::Secure.base64.rchop.rchop, days_last_change : UInt32? = (Time.utc_now - Time::UNIX_EPOCH).days.to_u32)
+  def self.new(password : String, crypto : Encryption = Encryption::SHA512, salt : String? = Random::Secure.base64.rchop.rchop, days_last_change : UInt32? = (Time.utc - Time::UNIX_EPOCH).days.to_u32)
     crypto_salt = crypto.build + salt.to_s
     hash = String.new(LibC.crypt password, crypto_salt).lstrip crypto_salt
     new crypto, salt, hash, days_last_change
